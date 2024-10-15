@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="cs-cz">
+    <head>
+        <!-- <script type="text/javascript" src="js/beamAnalytics.js" async></script> -->
+        <!-- <script type="text/javascript" data-goatcounter="https://stats.bruh.cz/count" src="js/goatCounter.js" async></script> -->
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="P2P server">
+        <meta name="author" content="Martin Hruboš">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://server.bruh.cz/server">
+
+        <title>P2P server web</title>
+
+        <link rel="icon" type="image/png" href="img/lebka.png">
+        <link rel="stylesheet" href="css/fonty.css" type="text/css">
+        <link rel="stylesheet" href="css/styly.css" type="text/css">
+        <link rel="stylesheet" href="css/chat.css" type="text/css">
+        <link rel="stylesheet" media="screen and (max-width: 768px)" href="css/mobil.css">
+
+        <!-- Boxicons CDN Link -->
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+        <!-- Google emoji -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+
+        <!-- PeerJS -->
+        <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+
+        <!-- AlaSQL -->
+        <script src="https://cdn.jsdelivr.net/alasql/latest/alasql.min.js"></script>
+
+        <!-- StreamSaver -->
+        <script src="https://cdn.jsdelivr.net/npm/web-streams-polyfill@3.3.2/dist/ponyfill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
+    </head>
+
+    <body>
+        <article class="home-section">
+            <div class="text">
+                <section>
+                    <div class="server">
+                        <div class="panely-kontejner">
+                            <!-- MENU -->
+                            <div class="menu">
+                                <!-- ROZEVÍRACÍ TLAČÍTKO PRO MENU -->
+                                <div class="btnMenu tlacitko">
+                                    <i class='bx bx-plus'></i>
+                                </div>
+
+                                <!-- HORIZONTÁLNÍ MENU -->
+                                <div class="horizontalni">
+                                    <div class="lobby tlacitko">
+                                        <i class='bx bx-globe'></i>
+                                    </div>
+                                    <div class="room tlacitko">
+                                        <i class='bx bx-conversation'></i>
+                                    </div>
+                                    <div class="nastaveni tlacitko">
+                                        <i class='bx bx-cog'></i>
+                                    </div>
+                                </div>
+
+                                <!-- VERTIKÁLNÍ MENU -->
+                                <div class="lobby vertikalni">
+                                    <div class="chat tlacitko">
+                                        <i class='bx bx-message-dots'></i>
+                                    </div>
+                                    <div class="uzivatele tlacitko">
+                                        <i class="bx bx-user"></i>
+                                    </div>
+                                </div>
+
+                                <div class="room vertikalni">
+                                    <div class="chat tlacitko">
+                                        <i class='bx bx-message-dots'></i>
+                                    </div>
+                                    <div class="uzivatele tlacitko">
+                                        <i class="bx bx-user"></i>
+                                    </div>
+                                    <div class="mistnosti tlacitko">
+                                        <i class="bx bx-buildings"></i>
+                                    </div>
+                                </div>
+
+                                <div class="nastaveni vertikalni">
+                                    <div class="btnMikrofon tlacitko" title="zapnout/vypnout mikrofon">
+                                        <i class="bx bx-microphone"></i>
+                                    </div>
+                                    <div class="btnKamera tlacitko" title="zapnout/vypnout kameru">
+                                        <i class="bx bx-camera"></i>
+                                    </div>
+                                    <div class="btnObrazovka tlacitko" title="zapnout/vypnout obrazovku">
+                                        <i class="bx bx-fullscreen"></i>
+                                    </div>
+                                    <div class="btnSoubory tlacitko" title="zapnout/vypnout příjem souborů">
+                                        <i class="bx bx-file"></i>
+                                    </div>
+
+                                    <div class="pamet">
+                                        <div class="text">RAM:</div>
+                                        <div class="celkova" title="celková paměť"></div>
+                                        <div class="pouzita" title="použitá paměť"></div>
+                                        <div class="limit" title="limit paměti"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- VRCHNÍ PANEL -->
+                            <div class="vrchniPanel">
+                                <!-- PŘIHLÁŠENÍ -->
+                                <div class="inputButton">
+                                    <input type="text" placeholder="Zadejte vaše jméno">
+                                    <button class="btnPrihlasitSe tlacitko" title="přihlásit se">
+                                        <i class='bx bx-log-in-circle'></i>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <!-- PANELY -->
+                            <!-- LOBBY CHAT -->
+                            <div class="lobby chat panel">
+                                <div class="zpravy">
+                                    <!-- ZDE BUDOU ZPRÁVY UŽIVATELŮ -->
+                                </div>
+
+                                <div class="inputButton">
+                                    <input type="text" placeholder="Napište zprávu">
+                                    <button class="btnOdeslatZpravu tlacitko" title="odeslat zprávu">
+                                        <i class='bx bx-log-in-circle'></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- LOBBY UŽIVATELÉ -->
+                            <div class="lobby uzivatele panel">
+                                <div class="grid">
+                                    <!-- ZDE BUDOU UŽIVATELÉ -->
+                                </div>
+                            </div>
+
+                            <!-- ROOM CHAT -->
+                            <div class="room chat panel">
+                                <div class="zpravy">
+                                    <!-- ZDE BUDOU ZPRÁVY UŽIVATELŮ -->
+                                </div>
+
+                                <div class="inputButton">
+                                    <input type="text" placeholder="Zadejte vaše jméno">
+                                    <button class="btnOdeslatZpravu tlacitko" title="odeslat zprávu">
+                                        <i class='bx bx-log-in-circle'></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- ROOM UŽIVATELÉ -->
+                            <div class="room uzivatele panel">
+                                <div class="grid">
+                                    <!-- ZDE BUDOU UŽIVATELÉ -->
+                                </div>
+                            </div>
+
+                            <!-- ROOM MÍSTNOSTI -->
+                            <div class="room mistnosti panel">
+                                <div class="grid">
+                                    <!-- ZDE BUDOU MÍSTNOSTI -->
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="mistnosti prijateSoubory panel">
+                                <div class="vrchniPanel">
+                                    <div class="nacistSoubor">
+                                        <label class="tlacitko vlastniFileInput" title="vybrat soubor">
+                                            <input type="file" class="fileInput">
+                                            <i class='bx bx-file'></i>
+                                        </label>
+
+                                        <div class="vybranySoubor">Žádný soubor</div>
+                                    </div>
+
+                                    <div class="odeslatSoubor">
+                                        <button class="tlacitko btnOdeslatSoubor" title="odeslat soubor">
+                                            <i class='bx bxs-file-export'></i>
+                                        </button>
+                                        
+                                        <div class="progresOdeslani">
+                                            <div class="progres"></div>
+                                            <div class="procenta">0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <!-- ZDE BUDOU PŘIJATÉ SOUBORY -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
+
+
+        <footer>
+            <p class="footer-text">Copyright &copy; 2023 <span id="aktualni-rok"></span> <a href="https://martinhrubos.cz/" target="_blank">martinhrubos.cz</a></p>
+        </footer>
+
+        <!-- SKRIPTY -->
+        <script src="js/footer.js"></script>
+        <script src="js/menu.js"></script>
+
+        <!-- P2P SERVER -->
+        <script src="js/p2pServer.js"></script>
+    </body>
+</html>

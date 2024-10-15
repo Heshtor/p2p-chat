@@ -1,0 +1,504 @@
+/* SERVER */
+.server {
+    display: flex;
+
+    background-color: var(--pozadi-uvod);
+    border: 1px dashed var(--text);
+    border-radius: 10px;
+    padding: 10px;
+
+    height: 100%;
+
+    /* VŠECHNA TLAČÍTKA NA SERVERU */
+    .tlacitko {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        width: 50px;
+        height: 50px;
+        background-color: var(--pozadi-menu);
+        border: 1px dashed var(--text);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+    
+        cursor: pointer;
+    
+        transition: border 0.3s;
+
+        &:hover {
+            border-color: #fff !important;
+            color: #fff;
+
+            i {
+                color: #fff;
+            }
+        }
+        
+        i {
+            transition: color 0.3s;
+        }
+        
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    /* VŠECHNY TEXTOVÉ INPUTY NA SERVERU */
+    input[type="text"] {
+        height: 50px;
+    
+        background-color: var(--pozadi-menu);
+        border: 1px dashed var(--text);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+
+        &:focus {
+            outline-style: none;
+            border-color: #fff !important;
+        }
+    }
+
+    /* PANELY KONTEJNER */
+    .panely-kontejner {
+        width: 100%;
+        height: 100%;
+    
+        display: flex;
+
+        border: 1px dashed var(--text);
+        border-radius: 10px;
+        border-top-right-radius: 0px;
+
+        position: relative;
+
+        /* MENU */
+        .menu {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+
+            display: flex;
+            width: 60px;
+            height: 60px;
+
+            z-index: 2;
+
+            .tlacitko {
+                width: 60px;
+                height: 60px;
+                border: none;
+                border-radius: 0px;
+                font-size: 26px;
+
+                &.selected {
+                    border-color: #fff !important;
+                    color: #fff;
+        
+                    i {
+                        color: #fff;
+                    }
+                }
+
+                &.zapnuto {
+                    color: lightgreen;
+        
+                    i {
+                        color: lightgreen;
+                    }
+                }
+            }
+
+            .btnMenu {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+            }
+
+            .horizontalni,
+            .vertikalni {
+                position: absolute;
+                display: flex;
+
+                transition: all 0.3s ease-in-out;
+            }
+
+            .horizontalni {
+                flex-direction: row;
+
+                top: 0px;
+                right: 60px;
+                transform: scaleX(0);
+                transform-origin: right;
+
+                &.open {
+                    transform: scaleX(1);
+                }
+            }
+
+            .vertikalni {
+                flex-direction: column;
+
+                right: 0px;
+                top: 60px;
+                transform: scaleY(0);
+                transform-origin: top;
+
+                &.open {
+                    transform: scaleY(1);
+                }
+            }
+
+            .pamet {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                gap: 0px;
+
+                width: 60px;
+                background-color: var(--pozadi-menu);
+                padding: 10px;
+                
+                .text,
+                .celkova,
+                .pouzita,
+                .limit {
+                    display: flex;
+                    white-space: nowrap;
+                    font-size: 6px;
+                }
+            }
+        }
+
+        /* VRCHNÍ PANEL */
+        .vrchniPanel {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+
+            display: flex;
+            height: 70px;
+            width: calc(100% - 60px);
+
+            transition: all 0.5s ease;
+
+            /* PŘIHLÁŠENÍ */
+            .inputButton {
+                width: 100%;
+                padding: 10px;
+
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                input[type="text"] {
+                    width: calc(100% - 60px);
+                }
+            }
+        }
+
+        /* VŠECHNY PANELY */
+        .panel {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+
+            width: 100%;
+            margin-top: 70px;
+
+            background-color: var(--pozadi-uvod);
+            border-radius: 10px;
+            border-top-right-radius: 0px;
+            
+            transition: all 0.5s ease;
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: max-content;
+                grid-gap: 4px;
+
+                overflow-y: auto;
+                padding: 10px;
+            }
+        }
+
+        /* ZPRÁVY */
+        .chat {
+            .zpravy {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                height: calc(100% - 80px);
+                width: 100%;
+                border-radius: 10px;
+
+                overflow-y: auto;
+                padding: 10px;
+
+                .message-container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+    
+                    .message {
+                        max-width: 70%;
+                        background-color: var(--pozadi-menu);
+                        padding: 10px;
+                        border-radius: 10px;
+                        word-break: break-word;
+                    }
+    
+                    &.own-message {
+                        justify-content: flex-end;
+                    }
+    
+                    &.other-message {
+                        justify-content: flex-start;
+                    }
+    
+                    &.server-message {
+                        justify-content: center;
+    
+                        .message {
+                            font-size: 12px;
+                            padding: 6px 10px;
+                        }
+                    }
+                }
+            }
+
+            /* INPUT PRO ZPRÁVU A TLAČÍTKO ODESLAT */
+            .inputButton {
+                width: 100%;
+                padding: 10px;
+
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                input[type="text"] {
+                    width: calc(100% - 60px);
+                }
+            }
+        }
+    
+        /* UŽIVATELÉ */
+        .uzivatele {
+            .vrchniPanel {
+                .tlacitka {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    height: 100%;
+                }
+
+                .IDzkopirovat {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap: 10px;
+                
+                    height: 100%;
+        
+                    .IDserver {
+                        display: flex;
+                        align-items: center;
+    
+                        width: calc(100% - 60px);
+                        height: 100%;
+                        
+                        overflow-x: auto;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .grid {
+                .uzivatel {
+                    width: 100%;
+                    background-color: var(--pozadi-menu);
+                    border-radius: 10px;
+                    padding: 16px;
+                
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 20px;
+
+                    .volume {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+        
+                        height: 30px;
+                        width: 100%;
+        
+                        .volumeSlider {
+                            -webkit-appearance: none;
+                            appearance: none;
+                            width: 100%;
+                            outline: none;
+                            border-radius: 15px;
+                            height: 6px;
+                            background-color: var(--text);
+        
+                            &::-webkit-slider-thumb {
+                                -webkit-appearance: none;
+                                appearance: none; 
+                                width: 10px;
+                                height: 30px;
+                                background: var(--pozadi-prvku);
+                                border: 2px solid var(--text);
+                                border-radius: 2px;
+                                cursor: pointer;                
+                            }
+                        }
+        
+                        .hlasitostMikrofonu,
+                        .hlasitostSlideru {
+                            display: flex;
+                            justify-content: center;
+                            min-width: 35px;
+                        }
+                    }
+    
+                    .video {
+                        display: flex;
+                        width: 100%;
+                        aspect-ratio: 16 / 9;
+                        background-color: var(--pozadi-uvod);
+
+                        video {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+    
+                    .jmeno {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        text-align: center;
+    
+                        word-break: break-word;
+                        overflow-y: auto;
+                    }
+                }
+            }
+        }
+
+        /* PŘIJATÉ SOUBORY */
+        .prijateSoubory {
+            .vrchniPanel {
+                .nacistSoubor {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    height: 100%;
+
+                    input[type="file"] {
+                        display: none;
+                    }
+    
+                    .vybranySoubor {
+                        display: flex;
+                        white-space: nowrap;
+                    }
+                }
+
+                .odeslatSoubor {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    height: 100%;
+                    width: 400px;
+
+                    .progresOdeslani {
+                        display: flex;
+                        align-items: center;
+                        background-color: var(--pozadi-prvku);
+                        width: calc(100% - 60px);
+                        height: 100%;
+                        border: 1px dashed var(--text);
+                        border-radius: 25px;
+                        position: relative;
+                        overflow: hidden;
+    
+                        .progres {
+                            display: flex;
+                            background-color: var(--prvek);
+                            width: 0%;
+                            height: 100%;
+                        }
+
+                        .procenta {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+
+                            padding-right: 15px;
+                            padding-left: 15px;
+                        }
+                    }
+                }
+            }
+
+            .grid {
+                .soubor {
+                    width: 100%;
+                    height: 180px;
+                    background-color: var(--pozadi-menu);
+                    border-radius: 10px;
+                    padding: 16px;
+                
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 20px;
+        
+                    .jmeno {
+                        display: flex;
+                        text-align: center;
+        
+                        word-break: break-word;
+                        overflow-y: auto;
+                    }
+        
+                    .tlacitka {
+                        display: flex;
+                        gap: 10px;
+        
+                        button {
+                            background-color: var(--pozadi-prvku);
+                            border: 1px solid var(--text);
+                            border-radius: 25px;
+                        }
+        
+                        .btnStahnoutSoubor {
+                            padding: 0px;
+                            background: conic-gradient(var(--prvek-hover) 0%, var(--pozadi-prvku) 0deg);
+        
+                            .vnitrniKruh {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+        
+                                height: 80%;
+                                width: 80%;
+                                border-radius: 50%;
+                                background-color: var(--pozadi-prvku);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

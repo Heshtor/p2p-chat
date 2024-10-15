@@ -1,0 +1,138 @@
+/* OBECNÉ */
+
+:root {
+    --text: #CACACA;
+    --pozadi-webu: #252525;
+    --pozadi-menu: #141414;
+    --odkazy: #B6B61E;
+    --odkazy-hover: #FFFF00;
+    --oddelovac: #54595F;
+    --pozadi-uvod: #1E1E1E;
+    --pozadi-prvku: #333333;
+    --prvek: #995B18;
+    --prvek-hover: #693F11;
+    --footer: #1E1E1E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Poppins", sans-serif, "Noto Color Emoji";
+    color: var(--text);
+}
+
+body {
+    background: var(--pozadi-webu);
+
+    /* PRO FOOTER */
+    display: flex; flex-direction: column;
+    min-height: 100vh; margin: 0;
+
+    /* PRO SCROLLBAR */
+    overflow: overlay;
+}
+
+.home-section {
+    position: relative;
+    width: 100%;
+    transition: all 0.5s ease;
+    /*z-index: 2;*/
+
+    /* PRO FOOTER */
+    flex: 1;
+
+    > .text {
+        display: block;
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 400;
+    
+        margin: 0 auto;
+        max-width: 1400px;
+        width: 100%;
+    
+        line-height: 1.6;
+    }
+}
+
+a,
+a:visited {
+    color: var(--odkazy);
+    text-decoration: none;
+
+    transition: all 0.5s ease;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--odkazy-hover);
+    }
+}
+
+h2 {
+    text-align: center;
+    font-size: 44px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+section {
+    padding: 50px 30px;
+    height: 100vh;
+    transition: all 0.5s ease;
+}
+
+.oddelovac {
+    border: none;
+    border-top: 5px dotted var(--oddelovac);
+    margin: 10px 15px;
+}
+
+/* KONEC OBECNÉHO */
+
+
+
+/* FOOTER */
+
+footer {
+    background-color: var(--footer);
+    text-align: center;
+    padding: 18px;
+    margin-top: 100px;
+
+    z-index: 99;
+
+    .footer-text {
+        position: relative;
+        width: 100%;
+        transition: all 0.5s ease;
+    }
+}
+
+/* KONEC FOOTERU */
+
+
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 17px;    /* default */
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pozadi-menu);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #111111;
+}
+
+/* KONEC SCROLLBARU */
